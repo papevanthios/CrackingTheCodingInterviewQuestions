@@ -34,6 +34,10 @@ public class IntQuest1 {
         System.out.println(isUniqueWithBitVector(str1));
         System.out.println(isUniqueWithBitVector(str2));
 
+        // Check strings using bit vector.
+        System.out.println("--- Using no Data Structure ---");
+        System.out.println(isUniqueWithNoDS(str1));
+        System.out.println(isUniqueWithNoDS(str2));
     }
 
     /**
@@ -93,5 +97,32 @@ public class IntQuest1 {
         return "The string:" + str + " is unique.";
     }
 
+    /**
+     * isUniqueWithNoDS() checks if the string that is given is unique or not, and also if it has zero characters.
+     * A method that uses no addition data structure, by using a boolean array.
+     * @param str the string to be checked
+     * @return a statement of the string
+     */
+    public static String isUniqueWithNoDS(String str) {
+        // Check if string has zero characters.
+        if (str.length() == 0)
+            return "The string has zero characters";
+
+        // Check if string has more than 128 characters, because we can't form a string with more than 128 unique characters.
+        if (str.length() > 128)
+            return "The string:" + str + " is NOT unique.";
+
+        // Creating a boolean array (with all false), for every character we make it true, if we rediscover it then we have a duplicate.
+        boolean[] charSet = new boolean[128];
+        for (int i = 0; i < str.length(); i++) {
+            int tempVal = str.charAt(i);
+            if (charSet[tempVal]) {
+                return "The string:" + str + " is NOT unique.";
+            }
+            charSet[tempVal] = true;
+        }
+
+        return "The string:" + str + " is unique.";
+    }
 
 }
