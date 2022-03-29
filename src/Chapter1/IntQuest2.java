@@ -23,10 +23,11 @@ import java.util.*;
 public class IntQuest2 {
 
     public static void main(String[] args) {
-        String str1 = "asdfghjkl";
-        String str2 = "fghjklasd";
+        String str1 = "asdfghjk";
+        String str2 = "fghjklas";
 
         System.out.println(checkPermutationWithHashTable(str1, str2));
+        System.out.println(checkPermutationSorting(str1, str2));
     }
 
     /**
@@ -76,6 +77,43 @@ public class IntQuest2 {
             return "The strings are permutations of each other.";
         else
             return "The strings are NOT permutations of each other.";
+    }
+
+    /**
+     * SortingString() we sort the string's characters, and we then return it back.
+     * @param str string to sort
+     * @return sorted string.
+     */
+    public static String sortingString(String str){
+        char[] content = str.toCharArray();
+        Arrays.sort(content);
+        return new String(content);
+    }
+
+    /**
+     * CheckPermutationSorting() we sort the characters of each string, and then we check if they are equals.
+     * @param str1 first string
+     * @param str2 second string
+     * @return a string with the appropriate information.
+     */
+    public static String checkPermutationSorting(String str1, String str2){
+        // Check if string has the same number of characters and if one of them has zero characters to exit.
+        if (str1.length() != str2.length() || str1.length() == 0)
+            return "The string are NOT permutations to each other. Zero characters or different lengths detected.";
+
+        // Check if the string are exactly the same.
+        if (str1.equals(str2))
+            return "The strings are permutations to each other.";
+
+        // Refactoring to lower case the two strings to compare them.
+        str1 = str1.toLowerCase(Locale.ROOT);
+        str2 = str2.toLowerCase(Locale.ROOT);
+
+        // We sort the string and then check if they are equals.
+        if (sortingString(str1).equals(sortingString(str2)))
+            return "The strings are permutations to each other.";
+        else
+            return "The strings are NOT permutations to each other.";
     }
 
 }
