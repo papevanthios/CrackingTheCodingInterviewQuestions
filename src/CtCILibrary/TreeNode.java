@@ -25,9 +25,91 @@ public class TreeNode {
     public TreeNode left, right, parent;
     private int size = 0;
 
+    /**
+     * Constructor TreeNode to take given value as data, and size as 1.
+     * @param d the integer value.
+     */
     public TreeNode(int d) {
         data = d;
         size = 1;
     }
 
+    /**
+     * InsertInOrder() method, will add the integer to the tree based on its value. First we check the current treeNode
+     * value, depends on the outcome, we will insert the given integer left or right. If the given integer is to be
+     * inserted to the left (left subTree) then we check if the leftChild is null in order to add it at that position or
+     * else we go a level down (for our example, we go left) and we call the InsertInOrder() method again and start
+     * making the same check until we insert the given integer to the correct position. The same checks happen if the
+     * given integer goes right.
+     *
+     * @param d integer to add to the tree
+     */
+    public void insertInOrder(int d) {
+        if (d <= data) {
+            if (left == null) {
+                setLeftChild(new TreeNode(d));
+            } else {
+                left.insertInOrder(d);
+            }
+        } else {
+            if (right == null) {
+                setRightChild(new TreeNode(d));
+            } else {
+                right.insertInOrder(d);
+            }
+        }
+        size++;
+    }
+
+    /**
+     * Size() method returns the size of the tree.
+     *
+     * @return an integer of the size.
+     */
+    public int size() {
+        return size;
+    }
+
+    /**
+     * Find() method returns a treeNode that is has been asked. First we check the head of the tree and if the head has
+     * the integer we are looking for then we return this.TreeNode. If the integer we asked if smaller than the head
+     * treeNode value then we go a level down if there is a left subTree, and we call the find() method again to with
+     * given integer, or we return null. If the integer we asked is bigger that the head treeNode then we make the same
+     * checks with the right subTree. Last if there is nowhere to be found we return null.
+     *
+     * @param d integer to be found.
+     * @return an integer or null.
+     */
+    public TreeNode find(int d) {
+        if (d == data) {
+            return this;
+        } else if (d <= data) {
+            return left != null ? left.find(d) : null;
+        } else if (d > data) {
+            return right != null ? right.find(d) : null;
+        }
+        return null;
+    }
+
+    /**
+     * SetLeftChild() method takes a treeNode and insert it to the left of the tree and set current treeNode as parent.
+     * @param left a TreeNode to be added.
+     */
+    public void setLeftChild(TreeNode left) {
+        this.left = left;
+        if (left != null) {
+            left.parent = this;
+        }
+    }
+
+    /**
+     * SetRightChild() method takes a treeNode and insert it to the right of the tree and set current treeNode as parent.
+     * @param right a TreeNode to be added.
+     */
+    public void setRightChild(TreeNode right) {
+        this.right = right;
+        if (right != null) {
+            right.parent = this;
+        }
+    }
 }
